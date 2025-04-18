@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .edit-container {
+      max-width: 600px;
+      margin: 100px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-container h2 {
+      text-align: center;
+      color: #0CC;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #0CC;
+      border: none;
+      border-radius: 12px;
+    }
+
+    .btn-primary:hover {
+      background-color: #09a;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-container">
+    <h2>ویرایش اطلاعات کاربر</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      {{ form.non_field_errors }}
+      
+      <div class="mb-3">
+        <label for="id_username">نام کاربری</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_email">ایمیل</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_phone">شماره تماس</label>
+        {{ form.phone }}
+        {{ form.phone.errors }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_birth_date">تاریخ تولد</label>
+        {{ form.birth_date }}
+        {{ form.birth_date.errors }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_job">شغل</label>
+        {{ form.job }}
+        {{ form.job.errors }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_bio">درباره شما</label>
+        {{ form.bio }}
+        {{ form.bio.errors }}
+      </div>
+
+      <div class="mb-3">
+        <label for="id_profile_img">تصویر پروفایل</label>
+        {{ form.profile_img }}
+        {{ form.profile_img.errors }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">ثبت تغییرات</button>
+    </form>
+  </div>
+</body>
+</html>

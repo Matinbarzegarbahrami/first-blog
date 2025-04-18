@@ -1,0 +1,107 @@
+{% load static %}
+{% load form_tags %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Post</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="container tm-container-content tm-mt-60">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <h2 class="tm-text-primary tm-mb-45">ویرایش پست</h2>
+
+                <form method="post" enctype="multipart/form-data" class="tm-contact-form">
+                    {% csrf_token %}
+
+                    <!-- فرم پست -->
+                    {% for field in form %}
+                        <div class="form-group mb-4">
+                            <label class="tm-text-secondary">{{ field.label_tag }}</label>
+                            {% if field.name == "description" %}
+                                {{ field|add_class:"form-control custom-textarea" }}
+                            {% else %}
+                                {{ field|add_class:"form-control" }}
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <!-- فرم‌ست تصاویر -->
+                    <h4 class="tm-text-primary mt-5 mb-3">تصاویر پست</h4>
+                    <div id="image-formset">
+                        {{ image_formset.management_form }}
+                        {% for form in image_formset %}
+    <div class="form-group image-form border p-4 rounded mb-4 shadow-sm bg-light" style="display: flex ; flex-wrap: wrap; flex-direction: row;">
+        {{ form.id }}
+
+        <div class="mb-3">
+            <label for="{{ form.img_file.id_for_label }}" class="form-label fw-bold text-primary">بارگذاری عکس:</label>
+            <input type="file" name="{{ form.img_file.name }}" id="{{ form.img_file.id_for_label }}" class="form-control" accept="image/*">
+        </div>
+
+        {% if form.instance.img_file %}
+            <div class="mb-3 text-center">
+                <img src="{{ form.instance.img_file.url }}" alt="تصویر فعلی" class="img-fluid rounded shadow" style="max-height: 250px;">
+            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold text-primary">توضیح عکس:</label>
+            {{ form.description|add_class:"form-control" }}
+        </div>
+
+        {% if form.DELETE %}
+            <div class="form-check">
+                {{ form.DELETE }}
+                <label class="form-check-label text-danger fw-bold">حذف این تصویر</label>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}
+
+
+                    </div>
+
+                    <button type="button" class="btn btn-secondary mt-3" id="add-image">افزودن تصویر</button>
+
+                    <div class="text-center mt-5">
+                        <button type="submit" class="btn btn-warning tm-btn-primary">ذخیره تغییرات</button>
+                    </div>
+                </form>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const formsetContainer = document.getElementById("image-formset");
+                        const addButton = document.getElementById("add-image");
+                        const totalForms = document.getElementById("id_images-TOTAL_FORMS");
+
+                        addButton.addEventListener("click", function () {
+                            const formCount = parseInt(totalForms.value);
+                            const newForm = `
+                                <div class="form-group image-form border p-3 rounded mb-3">
+                                    <label for="id_images-${formCount}-img_file">عکس:</label><br>
+                                    <input type="file" name="images-${formCount}-img_file" id="id_images-${formCount}-img_file" accept="image/*" class="form-control mb-2"><br>
+
+                                    <label for="id_images-${formCount}-description">توضیح:</label><br>
+                                    <textarea name="images-${formCount}-description" id="id_images-${formCount}-description" class="form-control"></textarea>
+                                </div>`;
+                            formsetContainer.insertAdjacentHTML("beforeend", newForm);
+                            totalForms.value = formCount + 1;
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

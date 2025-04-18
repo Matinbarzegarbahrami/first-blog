@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Project</title>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+    <header class="tm-header" id="tm-header">
+        
+        <div class="tm-header-wrapper">
+            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="tm-site-header">           
+                <h1 class="text-center">My Personal Project</h1>
+
+            </div>
+            <nav class="tm-nav" id="tm-nav">            
+                <ul>
+                    <li class="tm-nav-item"><a href="{% url 'blog:all_posts'%}" class="tm-nav-link">
+                        <i class="fas fa-home"></i>
+                        Home Page
+                    </a></li>
+                    <li class="tm-nav-item "><a href="#" class="tm-nav-link">
+                        <i class="fas fa-pen"></i>
+                        Single Post
+                    </a></li>
+                    
+                    <li class="tm-nav-item active"><a href="{% url 'blog:contact'%}" class="tm-nav-link">
+                        <i class="far fa-comments"></i>
+                        Contact Us
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="tm-mb-65">
+                <a href="https://github.com/Matinbarzegarbahrami" class="tm-social-link">
+                    <i class="fab fa-github tm-social-icon"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/matin-barzegar-bahrami-46292b360/" class="tm-social-link">
+                    <i class="fab fa-linkedin tm-social-icon"></i>
+                </a>
+                <a href="https://instagram.com/mmatin_barze" class="tm-social-link">
+                    <i class="fab fa-instagram tm-social-icon"></i>
+                </a>
+                <a href="https://t.me/asll_matlab" class="tm-social-link">
+                    <i class="fab fa-telegram tm-social-icon"></i>
+                </a>
+            </div>
+            <p class="tm-mb-80 pr-5 text-white">
+                Welcome to my personal blog project, created to demonstrate my web development skills and passion for learning.
+            </p>
+            
+        </div>
+    </header>
+    <div class="container-fluid">
+        <main class="tm-main">
+            <div class="row tm-row tm-mb-120">
+                <div class="col-12">
+                    <h2 class="tm-color-primary tm-post-title tm-mb-60">درباره من</h2>
+
+                    <p class="tm-color-gray tm-line-height-normal" dir="ltr" style="text-align: left;">
+                        Hi! I'm Matin.<br>
+                        I'm a motivated and energetic person who’s always eager to learn and try new things.<br>
+                        I work with Django and I'm currently working on deepening my knowledge of the Django REST framework.<br>
+                        I'm trying to gain more hands-on experience by building real-world projects and improving my API development skills.<br>
+                        My English is at an intermediate level, and I'm always trying to improve it.<br>
+                        I enjoy solving problems and taking on challenges, and I’m looking forward to working with professional teams and growing more every day.<br>
+                        If you're looking for a backend developer who's passionate about learning and self-growth, I'd love to connect!
+                    </p>
+                    <br>
+                    <hr class="tm-hr-primary tm-mt-50 tm-mb-50">
+                    <br>
+                    <p class="tm-color-gray tm-line-height-normal">
+                        سلام! من متین هستم.
+                        یه آدم پرانرژی که همیشه دنبال یادگیری و تجربه‌های جدیده.
+                        با جنگو (Django) کار می‌کنم و در حال حاضر در حال عمیق‌تر کردن دانشم توی فریم‌ورک Django REST هستم.
+                        سعی می‌کنم با انجام پروژه‌های عملی تجربه‌ بیشتری به‌دست بیارم و مهارت‌هام رو در توسعه‌ی API بالا ببرم.
+                        زبان انگلیسی‌م در حد متوسطه و همیشه سعی می‌کنم بهترش کنم.
+                        اهل چالش و حل مسئله‌ام و دوست دارم با تیم‌های حرفه‌ای کار کنم و بیشتر یاد بگیرم.
+                        اگه دنبال کسی هستی که بتونه بک‌اند رو جمع کنه و اهل رشد باشه، خوشحال می‌شم با هم آشنا بشیم :)
+                    </p>
+                </div>
+            </div>
+            <footer class="row tm-row">
+                <div class="col-md-6 col-12 tm-color-gray">
+                    Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>
+                </div>
+                <div class="col-md-6 col-12 tm-color-gray text-md-left text-right">
+                    © 2025 رزومه شخصی
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/templatemo-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
+<style>
+  .tm-main, .tm-row, .tm-post, .tm-post-full, .tm-about-pad {
+      width: 100%;
+      max-width: 1350px;
+      margin: 0 auto;
+  }
+
+  .tm-about-pad {
+      padding: 40px;
+      border-radius: 15px;
+      background-color: #f9f9f9;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+</style>
+</head>
+<body>
+
+    <body>
+        <div class="tm-auth-links" style="padding-right:10px">
+          <a href="{% url 'blog:all_posts' %}" class="tm-btn-auth">Home</a> 
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'blog:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="tm-btn-auth">خروج</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="tm-main">
+          <div class="tm-row tm-mb-60">
+            <div class="tm-post tm-post-full">
+              <div class="tm-about-pad tm-bg-gray">
+                <div style="display: flex; align-items: center;">
+                    <h2 class="tm-color-primary tm-mb-30" style="margin: 0;">Profile</h2>
+                    <div style="margin-left: auto;">
+                        {% if user.profile_img %}
+                            <img src="{{ user.profile_img.url }}" alt="profile-img" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);">
+                        {% else %}
+                            <img src="{% static 'img/Default_pfp.jpg' %}" alt="profile-img" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);">
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <p><strong>username: </strong>{{user.username}}</p>
+                <p>
+                    <strong>email:</strong>
+                        {% if user.email %}
+                            {{user.email}}
+                        {% endif %}
+                            <p> </p>
+                </p>
+                <p><strong>Phone:</strong> {{ user.phone }}</p>
+                <p><strong>Birth Date:</strong> {{ user.birth_date|date:"F j, Y" }}</p>
+                <p><strong>Job:</strong> {% if user.job %}
+                    {{user.job}}
+                {% endif %}
+                    <p> </p>
+                </p>
+                <p><strong>Bio:</strong> {{ user.bio }}</p>
+                <p><strong>post number: </strong>{{user.user_post.count}}</p>
+              </div>
+            </div>
+          </div>
+      <br>
+          <div class="tm-row tm-mb-40">
+            <div class="tm-post tm-post-full">
+              <div class="d-flex justify-content-between align-items-center tm-mb-30">
+                <h3 class="tm-color-primary">پست‌های من</h3>
+                <a href="{% url 'blog:create_post'%}" class="tm-btn tm-btn-primary tm-btn-small">
+                  <i class="fas fa-plus"></i> ایجاد پست جدید
+                </a>
+              </div>
+<br>
+                <div class="table-responsive">
+
+                  <table class="table table-striped table-hover tm-mb-60">
+                    <thead class="thead-light">
+                      <tr>
+                        <th class="px-4 py-3">عنوان</th>
+                        <th class="px-4 py-3">تاریخ</th>
+                        <th class="px-4 py-3">وضعیت</th>
+                        <th class="px-4 py-3">فعال</th>
+                        <th class="px-4 py-3">عملیات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for post in posts %}
+                      <tr>
+                        <td class="px-4 py-3">{{ post.title }}</td>
+                        <td class="px-4 py-3">{{ post.created|date:"Y, m, d" }}</td>
+                        <td class="px-4 py-3">
+                          {% if post.active %}
+                            <span style="color: green;">منتشر شده</span>
+                          {% else %}
+                            <span style="color: orange;">پیش‌نویس</span>
+                          {% endif %}
+                        </td>
+                        <td class="px-4 py-3">
+                          <form method="post" action="{% url 'blog:toggle_active' post.id %}">
+                            {% csrf_token %}
+                            {% if post.active %}
+                              <button type="submit" class="btn btn-sm btn-warning">غیرفعال کن</button>
+                            {% else %}
+                              <button type="submit" class="btn btn-sm btn-success">فعال کن</button>
+                            {% endif %}
+                          </form>
+                        </td>
+                        <td class="px-4 py-3">
+                          <div class="d-flex gap-3">
+                            <a href="{% url 'blog:edit_post' post.id %}" class="tm-color-primary">
+                              <i class="fas fa-edit"></i> ویرایش
+                            </a>
+                            <p> </p>
+                            <a href="{% url 'blog:delete_post' post.id %}" class="tm-color-danger">
+                              <i class="fas fa-trash-alt"></i> حذف
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+              
+                </div>
+              </div>
+              
+              
+      
+            </div>
+          </div>
+        </div>
+      </body>
+</html>
