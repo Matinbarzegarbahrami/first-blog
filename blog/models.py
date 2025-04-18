@@ -34,7 +34,7 @@ class Post(models.Model):
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
     
     tags = TaggableManager()
     
