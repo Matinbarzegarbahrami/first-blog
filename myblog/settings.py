@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'myblog_db',
         'USER': 'bloguser',
         'PASSWORD': 'aAaAs11_c',
-        'HOST': 'localhost',
+        'HOST': 'first-blog-at6r.onrender.com',
         'PORT': '5432',
     }
 }
