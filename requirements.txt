@@ -68,4 +68,5 @@ tzdata==2024.2
 tzlocal==5.3.1
 urllib3==2.3.0
 watchdog==6.0.0
+whitenoise==6.9.0
 yfinance==0.2.55
