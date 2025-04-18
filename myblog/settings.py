@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-p#!luwxo@$)&)d8z28p#zo)sk%51$iouv8ek90-4p=yyioz)3z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['first-blog-at6r.onrender.com']
+ALLOWED_HOSTS = ['first-blog-at6r.onrender.com','*']
 
 
 # Application definition
@@ -149,3 +149,35 @@ AUTH_USER_MODEL = 'blog.User'
 LOGOUT_REDIRECT_URL = 'myblog:login' # بعد از لاگ‌اوت به این مسیر می‌ره
 LOGIN_URL = '/login/' 
 LOGOUT_URL = '/logout/'
+
+
+INSTALLED_APPS += [
+    'cloudinary',
+    'cloudinary_storage',
+]
+
+# استفاده از Cloudinary به عنوان فضای ذخیره فایل
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# اطلاعات Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'durmeyhej',
+    'API_KEY': '869882568717196',
+    'API_SECRET': 'EwJZwuXXJQvJgT76Fk3LcMgkXkY',
+}
+
+# فقط برای نمایش URLهای فایل‌ها، نیازی نیست حتماً ست بشه
+MEDIA_URL = f'https://res.cloudinary.com/durmeyhej/'
+
+
+
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name='YOUR_CLOUD_NAME',
+    api_key='YOUR_API_KEY',
+    api_secret='YOUR_API_SECRET'
+)
