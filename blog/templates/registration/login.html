@@ -16,30 +16,30 @@
     <div class="tm-main">
         <div class="container">
             <div class="tm-post mx-auto tm-mt-100" style="max-width: 400px;">
-                <h2 class="tm-post-title tm-color-primary tm-mb-45">ورود به حساب کاربری</h2>
+                <h2 class="tm-post-title tm-color-primary tm-mb-45">Log In</h2>
                 
                 <form method="post" action="{% url 'myblog:login' %}" class="tm-contact-form" >
                     {% csrf_token %}
                     {% if form.errors %}
                         <div class="alert alert-danger">
-                            لطفاً اطلاعات را به درستی وارد کنید.
+                            Please enter your information.
                         </div>
                     {% endif %}
                     
                     <div class="form-group tm-mb-30">
-                        <input type="text" name="username" class="form-control" placeholder="نام کاربری" required>
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
                     </div>
 
                     <div class="form-group tm-mb-30">
-                        <input type="password" name="password" class="form-control" placeholder="رمز عبور" required>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="tm-btn tm-btn-primary tm-btn-small">ورود</button>
+                        <button type="submit" class="tm-btn tm-btn-primary tm-btn-small">Log in</button>
                     </div>
                 </form>
 
-                <p class="tm-mt-40">هنوز ثبت‌نام نکردید؟ <a href="{%url 'blog:sign_up'%}" class="tm-external-link">ثبت‌نام کنید</a></p>
+                <p class="tm-mt-40">Don't have an account?<a href="{%url 'blog:sign_up'%}" class="tm-external-link">Sign up</a></p>
             </div>
         </div>
     </div>

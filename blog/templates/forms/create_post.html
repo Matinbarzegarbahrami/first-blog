@@ -19,7 +19,7 @@
     <div class="container tm-container-content tm-mt-60">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <h2 class="tm-text-primary tm-mb-45">ایجاد پست جدید</h2>
+                <h2 class="tm-text-primary tm-mb-45">New post</h2>
 
                 <form method="post" enctype="multipart/form-data" class="tm-contact-form">
                     {% csrf_token %}
@@ -40,25 +40,25 @@
                     {% endfor %}
 
                     <!-- فرم‌ست تصاویر -->
-                    <h4 class="tm-text-primary mt-5 mb-3">تصاویر پست</h4>
+                    <h4 class="tm-text-primary mt-5 mb-3">Post pictures</h4>
                     <div id="image-formset">
                         {{ image_formset.management_form }}
                         {% for form in image_formset %}
                             <div class="form-group image-form border p-3 rounded mb-3">
-                                <label for="{{ form.img_file.id_for_label }}">عکس:</label><br>
+                                <label for="{{ form.img_file.id_for_label }}">picture:</label><br>
                                 <input type="file" name="{{ form.img_file.name }}" id="{{ form.img_file.id_for_label }}" class="form-control mb-2" accept="image/*"><br>
 
-                                <label for="{{ form.description.id_for_label }}">توضیح:</label><br>
+                                <label for="{{ form.description.id_for_label }}">Picture descriptions:</label><br>
                                 {{ form.description|add_class:"form-control" }}
                             </div>
                         {% endfor %}
 
                     </div>
 
-                    <button type="button" class="btn btn-secondary mt-3" id="add-image">افزودن تصویر</button>
+                    <button type="button" class="btn btn-secondary mt-3" id="add-image">Add picture</button>
 
                     <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-primary tm-btn-primary">انتشار پست</button>
+                        <button type="submit" class="btn btn-primary tm-btn-primary">Publish post</button>
                     </div>
                 </form>
 

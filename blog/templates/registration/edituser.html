@@ -47,55 +47,70 @@
 </head>
 <body>
   <div class="edit-container">
-    <h2>ویرایش اطلاعات کاربر</h2>
+    <h2>Edit your information</h2>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       
       {{ form.non_field_errors }}
       
       <div class="mb-3">
-        <label for="id_username">نام کاربری</label>
+        <label for="id_username">Username</label>
         {{ form.username }}
         {{ form.username.errors }}
       </div>
 
       <div class="mb-3">
-        <label for="id_email">ایمیل</label>
+        <label for="id_email">Email</label>
         {{ form.email }}
         {{ form.email.errors }}
       </div>
 
       <div class="mb-3">
-        <label for="id_phone">شماره تماس</label>
+        <label for="id_phone">Phone number</label>
         {{ form.phone }}
         {{ form.phone.errors }}
       </div>
 
       <div class="mb-3">
-        <label for="id_birth_date">تاریخ تولد</label>
+        <label for="id_birth_date">Bitrh day</label>
         {{ form.birth_date }}
         {{ form.birth_date.errors }}
       </div>
 
       <div class="mb-3">
-        <label for="id_job">شغل</label>
+        <label for="id_job">Job</label>
         {{ form.job }}
         {{ form.job.errors }}
       </div>
 
       <div class="mb-3">
-        <label for="id_bio">درباره شما</label>
+        <label for="id_bio">About me</label>
         {{ form.bio }}
         {{ form.bio.errors }}
       </div>
 
       <div class="mb-3">
-        <label for="id_profile_img">تصویر پروفایل</label>
-        {{ form.profile_img }}
-        {{ form.profile_img.errors }}
+        <label for="id_profile_img" class="form-label">Profile picture</label>
+      
+        {% if form.instance.profile_img %}
+          <div class="mb-2">
+            <img src="{{ user.profile_img.url }}" alt="تصویر فعلی" style="max-width: 150px; border-radius: 10px;">
+          </div>
+        {% else %}
+          <p>no</p>
+        {% endif %}
+      
+        {{ form.profile_img.as_widget }}
+      
+        {% if form.profile_img.errors %}
+          <div class="text-danger">
+            {{ form.profile_img.errors }}
+          </div>
+        {% endif %}
       </div>
+      
 
-      <button type="submit" class="btn btn-primary w-100">ثبت تغییرات</button>
+      <button type="submit" class="btn btn-primary w-100">Record changes</button>
     </form>
   </div>
 </body>

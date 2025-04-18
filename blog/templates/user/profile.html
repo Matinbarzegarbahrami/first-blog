@@ -31,7 +31,7 @@
             {% if user.is_authenticated %}
                 <form method="post" action="{% url 'blog:logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="tm-btn-auth">خروج</button>
+                    <button type="submit" class="tm-btn-auth">Log out</button>
                 </form>
             {% endif %}
         </div>
@@ -45,8 +45,8 @@
                         {% if user.profile_img %}
                             <img src="{{ user.profile_img.url }}" alt="profile-img" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);">
                         {% else %}
-                            <img src="{% static 'img/Default_pfp.jpg' %}" alt="profile-img" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);">
                         {% endif %}
+                        
                     </div>
                 </div>
                 
@@ -67,6 +67,9 @@
                 </p>
                 <p><strong>Bio:</strong> {{ user.bio }}</p>
                 <p><strong>post number: </strong>{{user.user_post.count}}</p>
+                <a href="{% url 'blog:edit_profile'%}" class="tm-btn tm-btn-primary tm-btn-small">
+                  <i class="fas"></i> Edit profile  
+                </a>
               </div>
             </div>
           </div>
@@ -74,9 +77,9 @@
           <div class="tm-row tm-mb-40">
             <div class="tm-post tm-post-full">
               <div class="d-flex justify-content-between align-items-center tm-mb-30">
-                <h3 class="tm-color-primary">پست‌های من</h3>
+                <h3 class="tm-color-primary">My posts</h3>
                 <a href="{% url 'blog:create_post'%}" class="tm-btn tm-btn-primary tm-btn-small">
-                  <i class="fas fa-plus"></i> ایجاد پست جدید
+                  <i class="fas fa-plus"></i> New post  
                 </a>
               </div>
 <br>
@@ -85,11 +88,11 @@
                   <table class="table table-striped table-hover tm-mb-60">
                     <thead class="thead-light">
                       <tr>
-                        <th class="px-4 py-3">عنوان</th>
-                        <th class="px-4 py-3">تاریخ</th>
-                        <th class="px-4 py-3">وضعیت</th>
-                        <th class="px-4 py-3">فعال</th>
-                        <th class="px-4 py-3">عملیات</th>
+                        <th class="px-4 py-3">Title</th>
+                        <th class="px-4 py-3">Date</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Activity</th>
+                        <th class="px-4 py-3">Operation</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -99,29 +102,29 @@
                         <td class="px-4 py-3">{{ post.created|date:"Y, m, d" }}</td>
                         <td class="px-4 py-3">
                           {% if post.active %}
-                            <span style="color: green;">منتشر شده</span>
+                            <span style="color: green;">published</span>
                           {% else %}
-                            <span style="color: orange;">پیش‌نویس</span>
+                            <span style="color: orange;">draft</span>
                           {% endif %}
                         </td>
                         <td class="px-4 py-3">
                           <form method="post" action="{% url 'blog:toggle_active' post.id %}">
                             {% csrf_token %}
                             {% if post.active %}
-                              <button type="submit" class="btn btn-sm btn-warning">غیرفعال کن</button>
+                              <button type="submit" class="btn btn-sm btn-warning">Deactive</button>
                             {% else %}
-                              <button type="submit" class="btn btn-sm btn-success">فعال کن</button>
+                              <button type="submit" class="btn btn-sm btn-success">activate</button>
                             {% endif %}
                           </form>
                         </td>
                         <td class="px-4 py-3">
                           <div class="d-flex gap-3">
                             <a href="{% url 'blog:edit_post' post.id %}" class="tm-color-primary">
-                              <i class="fas fa-edit"></i> ویرایش
+                              <i class="fas fa-edit"></i> Edit
                             </a>
                             <p> </p>
                             <a href="{% url 'blog:delete_post' post.id %}" class="tm-color-danger">
-                              <i class="fas fa-trash-alt"></i> حذف
+                              <i class="fas fa-trash-alt"></i> Delete
                             </a>
                           </div>
                         </td>

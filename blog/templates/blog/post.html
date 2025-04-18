@@ -77,13 +77,13 @@ https://templatemo.com/tm-553-xtra-blog
     <div class="tm-auth-links" style="padding-right:10px">
         <a href="{% url 'blog:all_posts' %}" class="tm-btn-auth">Home</a>
         {% if user.is_authenticated %}
-            <a href="{% url 'blog:profile' %}" class="tm-btn-auth">پروفایل</a>
+            <a href="{% url 'blog:profile' %}" class="tm-btn-auth">profile</a>
             <form method="post" action="{% url 'blog:logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="tm-btn-auth">خروج</button>
+                <button type="submit" class="tm-btn-auth">Log out</button>
             </form>
         {% else %}
-            <a href="{% url 'blog:login' %}" class="tm-btn-auth">ورود</a>
+            <a href="{% url 'blog:login' %}" class="tm-btn-auth">Log in</a>
         {% endif %}
         
     </div>
@@ -157,13 +157,13 @@ https://templatemo.com/tm-553-xtra-blog
                         
                         <div>
                             <h2 class="tm-color-primary tm-post-title">Comments</h2>
+                            <hr class="tm-hr-primary tm-mb-45">
                             {%if usercomment%}
                                 <p> Your comment's under review </p>
                                 {%for usercommentfalse in usercomment%}
                                 <p> {{usercommentfalse.text}} </p>
                                 {%endfor%}
                             {%endif%}
-                            <hr class="tm-hr-primary tm-mb-45">
                             {%for cm in comments%}
                             <div class="tm-comment tm-mb-45">
                                 <figure class="tm-comment-figure">

@@ -16,7 +16,7 @@
     <div class="container tm-container-content tm-mt-60">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-                <h2 class="tm-text-primary tm-mb-45">ویرایش پست</h2>
+                <h2 class="tm-text-primary tm-mb-45">Edit post</h2>
 
                 <form method="post" enctype="multipart/form-data" class="tm-contact-form">
                     {% csrf_token %}
@@ -37,7 +37,7 @@
                     {% endfor %}
 
                     <!-- فرم‌ست تصاویر -->
-                    <h4 class="tm-text-primary mt-5 mb-3">تصاویر پست</h4>
+                    <h4 class="tm-text-primary mt-5 mb-3">Post pictures</h4>
                     <div id="image-formset">
                         {{ image_formset.management_form }}
                         {% for form in image_formset %}
@@ -45,7 +45,7 @@
         {{ form.id }}
 
         <div class="mb-3">
-            <label for="{{ form.img_file.id_for_label }}" class="form-label fw-bold text-primary">بارگذاری عکس:</label>
+            <label for="{{ form.img_file.id_for_label }}" class="form-label fw-bold text-primary">Upload picture:</label>
             <input type="file" name="{{ form.img_file.name }}" id="{{ form.img_file.id_for_label }}" class="form-control" accept="image/*">
         </div>
 
@@ -56,14 +56,14 @@
         {% endif %}
 
         <div class="mb-3">
-            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold text-primary">توضیح عکس:</label>
+            <label for="{{ form.description.id_for_label }}" class="form-label fw-bold text-primary">Picture description:</label>
             {{ form.description|add_class:"form-control" }}
         </div>
 
         {% if form.DELETE %}
             <div class="form-check">
                 {{ form.DELETE }}
-                <label class="form-check-label text-danger fw-bold">حذف این تصویر</label>
+                <label class="form-check-label text-danger fw-bold">Delete picture</label>
             </div>
         {% endif %}
     </div>
@@ -72,10 +72,10 @@
 
                     </div>
 
-                    <button type="button" class="btn btn-secondary mt-3" id="add-image">افزودن تصویر</button>
+                    <button type="button" class="btn btn-secondary mt-3" id="add-image">Add picture</button>
 
                     <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-warning tm-btn-primary">ذخیره تغییرات</button>
+                        <button type="submit" class="btn btn-warning tm-btn-primary">Save changes</button>
                     </div>
                 </form>
 

@@ -26,7 +26,7 @@ def all_posts(request, tag_slug=None):
     page_number_tags = request.GET.get('page_tag', 1)
     page_obj_tags = paginator_tags.get_page(page_number_tags)
 
-    paginator_posts = Paginator(posts, 1)  
+    paginator_posts = Paginator(posts, 10)  
     page_number_posts = request.GET.get('page', 1)
     page_obj_posts = paginator_posts.get_page(page_number_posts)
     context = {
@@ -168,7 +168,7 @@ def profile(request):
 
 def edit_profile(request):
     if request.method == "POST":
-        form = SignupForm(request.POST, instance=request.user ,username=request.user.username)
+        form = SignupForm(request.POST,request.FILES,instance=request.user)
         
         if form.is_valid():
             form.save()

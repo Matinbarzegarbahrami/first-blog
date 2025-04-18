@@ -1,6 +1,7 @@
 from django import forms
 from .models import Comment,Post,Image,User
 from django.core.exceptions import ValidationError
+from django.forms.widgets import DateInput
 
 class SignupForm(forms.ModelForm):
     password = forms.CharField(max_length=250 , widget=forms.PasswordInput, label='password')
@@ -9,8 +10,10 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name' , 'email',
-                'phone','birth_date','job','bio']
-    
+                'phone','birth_date','job','bio','profile_img']
+        widgets = {
+            'profile_img': forms.FileInput(attrs={'class': 'form-control'}),
+        }
     def clean_password2(self):
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
@@ -22,6 +25,11 @@ class SignupForm(forms.ModelForm):
         email = cd['email']
         if User.objects.filter(email=email).exists():
             raise ValidationError('Email already used')
+    birth_date = forms.DateField(
+        widget=DateInput(attrs={'type': 'date'})
+    )
+    # profile_img = forms.ImageField()
+    
 
 class PostForm(forms.ModelForm):
     class Meta:

@@ -51,33 +51,33 @@
 <body>
 
   <div class="signup-container">
-    <h2 class="signup-title">ثبت‌نام کاربر</h2>
+    <h2 class="signup-title">Sign up</h2>
     <form method="post">
       {% csrf_token %}
       <div class="mb-3">
-        <label for="id_username">نام کاربری</label>
+        <label for="id_username">Username</label>
         {{ form.username }}
         {{ form.username.errors }}
       </div>
       <div class="mb-3">
-        <label for="id_email">ایمیل</label>
+        <label for="id_email">Email</label>
         {{ form.email }}
         {{ form.email.errors }}
       </div>
       <div class="mb-3">
-        <label for="id_password1">رمز عبور</label>
+        <label for="id_password1">Password</label>
         {{ form.password }}
         {{ form.password.errors }}
       </div>
       <div class="mb-3">
-        <label for="id_password2">تکرار رمز عبور</label>
+        <label for="id_password2">Repeat password</label>
         {{ form.password2 }}
         {{ form.password2.errors }}
       </div>
-      <button type="submit" class="btn btn-primary w-100">ثبت‌نام</button>
+      <button type="submit" class="btn btn-primary w-100">Sign up</button>
     </form>
     <p class="mt-3 text-center">
-      حساب دارید؟ <a href="{% url 'blog:login' %}" class="tm-color-primary">ورود</a>
+       Have account? <a href="{% url 'blog:login' %}" class="tm-color-primary">Log in</a>
     </p>
   </div>
 
