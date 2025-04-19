@@ -4,7 +4,7 @@ from django.urls import reverse
 from taggit.managers import TaggableManager
 from django.core.validators import FileExtensionValidator
 from cloudinary.models import CloudinaryField
-
+from django.utils.text import slugify
 
 class User(AbstractUser):
     profile_img = CloudinaryField('image', null=True, blank=True)  # اضافه کردن null و blank برای اختیاری بودن
@@ -55,9 +55,12 @@ class Post(models.Model):
         return self.title  # تغییر به عنوان به جای توضیحات
 
     def get_absolute_url(self):
-        return reverse("blog:post", args=[self.slug])  # استفاده از slug به جای id
+        return reverse('myblog:post', args=[self.id]) # استفاده از slug به جای id
 
-
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
 # ______________________________________________________________________
 class Image(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
