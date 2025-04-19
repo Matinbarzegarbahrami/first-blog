@@ -24,8 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p#!luwxo@$)&)d8z28p#zo)sk%51$iouv8ek90-4p=yyioz)3z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = True
 ALLOWED_HOSTS = ['first-blog-at6r.onrender.com','*']
 
 
@@ -177,7 +176,7 @@ import cloudinary.uploader
 import cloudinary.api
 
 cloudinary.config(
-    cloud_name='YOUR_CLOUD_NAME',
-    api_key='YOUR_API_KEY',
-    api_secret='YOUR_API_SECRET'
+    cloud_name='durmeyhej',
+    api_key='869882568717196',
+    api_secret='EwJZwuXXJQvJgT76Fk3LcMgkXkY'
 )
