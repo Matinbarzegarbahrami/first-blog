@@ -61,7 +61,7 @@ class Post(models.Model):
 # ______________________________________________________________________
 class Image(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
-    img_file = CloudinaryField("post_images/", validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif', 'webp'])])
+    img_file = CloudinaryField("post_images/",resource_type="auto", validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'gif', 'webp'])])
     title = models.CharField(max_length=250, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

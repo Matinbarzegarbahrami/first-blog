@@ -12,91 +12,103 @@
 </head>
 
 <body>
-    <div class="container tm-container-content tm-mt-60">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                <h2 class="tm-text-primary tm-mb-45">Edit post</h2>
+<div class="container tm-container-content tm-mt-60">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <h2 class="tm-text-primary tm-mb-45">Edit post</h2>
 
-                <form method="post" enctype="multipart/form-data" class="tm-contact-form">
-                    {% csrf_token %}
+            <form method="post" enctype="multipart/form-data" class="tm-contact-form">
+                {% csrf_token %}
 
-                    <!-- فرم پست -->
-                    {% for field in form %}
-                        <div class="form-group mb-4">
-                            <label class="tm-text-secondary">{{ field.label_tag }}</label>
-                            {% if field.name == "description" %}
-                                {{ field|add_class:"form-control custom-textarea" }}
-                            {% else %}
-                                {{ field|add_class:"form-control" }}
+                <!-- فرم پست -->
+                {% for field in form %}
+                    <div class="form-group mb-4">
+                        <label class="tm-text-secondary">{{ field.label_tag }}</label>
+                        {% if field.name == "description" %}
+                            {{ field|add_class:"form-control custom-textarea" }}
+                        {% else %}
+                            {{ field|add_class:"form-control" }}
+                        {% endif %}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <h4 class="tm-text-primary mt-5 mb-3">پیوست‌ها (عکس یا فایل)</h4>
+                <div id="image-formset">
+                    {{ image_formset.management_form }}
+                    {% for form in image_formset %}
+                        <div class="form-group image-form border p-4 rounded mb-4 shadow-sm bg-light">
+                            {{ form.id }}
+
+                            <div class="mb-3">
+                                <label for="{{ form.img_file.id_for_label }}" class="form-label fw-bold text-primary">بارگذاری فایل:</label>
+                                <input type="file" name="{{ form.img_file.name }}" id="{{ form.img_file.id_for_label }}" class="form-control">
+                            </div>
+
+                            {% if form.instance.img_file %}
+                                {% with file_url=form.instance.img_file.url %}
+                                    {% if file_url|lower|endswith:".jpg" or file_url|lower|endswith:".jpeg" or file_url|lower|endswith:".png" or file_url|lower|endswith:".webp" or file_url|lower|endswith:".gif" %}
+                                        <div class="mb-3 text-center">
+                                            <img src="{{ file_url }}" alt="پیش‌نمایش تصویر" class="img-fluid rounded shadow" style="max-height: 250px;">
+                                        </div>
+                                    {% else %}
+                                        <div class="mb-3">
+                                            <a href="{{ file_url }}" class="btn btn-outline-secondary" target="_blank">
+                                                <i class="fas fa-file-alt"></i> مشاهده فایل
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
                             {% endif %}
-                            {% if field.errors %}
-                                <div class="text-danger small">{{ field.errors }}</div>
+
+                            <div class="mb-3">
+                                <label for="{{ form.description.id_for_label }}" class="form-label fw-bold text-primary">توضیح فایل:</label>
+                                {{ form.description|add_class:"form-control" }}
+                            </div>
+
+                            {% if form.DELETE %}
+                                <div class="form-check">
+                                    {{ form.DELETE }}
+                                    <label class="form-check-label text-danger fw-bold">حذف فایل</label>
+                                </div>
                             {% endif %}
                         </div>
                     {% endfor %}
+                </div>
 
-                    <h4 class="tm-text-primary mt-5 mb-3">Post pictures</h4>
-                    <div id="image-formset">
-                        {{ image_formset.management_form }}
-                        {% for form in image_formset %}
-                            <div class="form-group image-form border p-4 rounded mb-4 shadow-sm bg-light">
-                                {{ form.id }}
+                <button type="button" class="btn btn-secondary mt-3" id="add-image">افزودن فایل جدید</button>
 
-                                <div class="mb-3">
-                                    <label for="{{ form.img_file.id_for_label }}" class="form-label fw-bold text-primary">Upload picture:</label>
-                                    {{ form.img_file|add_class:"form-control" }}
-                                </div>
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-warning tm-btn-primary">ذخیره تغییرات</button>
+                </div>
+            </form>
 
-                                {% if form.instance.img_file %}
-                                    <div class="mb-3 text-center">
-                                        <img src="{{ form.instance.img_file.url }}" alt="تصویر فعلی" class="img-fluid rounded shadow" style="max-height: 250px;">
-                                    </div>
-                                {% endif %}
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const formsetContainer = document.getElementById("image-formset");
+                    const addButton = document.getElementById("add-image");
+                    const totalForms = document.getElementById("id_images-TOTAL_FORMS");
 
-                                <div class="mb-3">
-                                    <label for="{{ form.description.id_for_label }}" class="form-label fw-bold text-primary">Picture description:</label>
-                                    {{ form.description|add_class:"form-control" }}
-                                </div>
+                    addButton.addEventListener("click", function () {
+                        const formCount = parseInt(totalForms.value);
+                        const newForm = `
+                            <div class="form-group image-form border p-3 rounded mb-3 bg-light shadow-sm">
+                                <label for="id_images-${formCount}-img_file" class="form-label">فایل:</label>
+                                <input type="file" name="images-${formCount}-img_file" id="id_images-${formCount}-img_file" class="form-control mb-2">
 
-                                {% if form.DELETE %}
-                                    <div class="form-check">
-                                        {{ form.DELETE }}
-                                        <label class="form-check-label text-danger fw-bold">Delete picture</label>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
+                                <label for="id_images-${formCount}-description" class="form-label">توضیح:</label>
+                                <textarea name="images-${formCount}-description" id="id_images-${formCount}-description" class="form-control"></textarea>
+                            </div>`;
+                        formsetContainer.insertAdjacentHTML("beforeend", newForm);
+                        totalForms.value = formCount + 1;
+                    });
+                });
+            </script>
 
-                    <!-- فرم مخفی برای ساخت فرم جدید -->
-                    <div id="empty-form" class="d-none">
-                        {{ image_formset.empty_form.as_p }}
-                    </div>
-
-                    <button type="button" class="btn btn-secondary mt-3" id="add-image">Add picture</button>
-
-                    <div class="text-center mt-5">
-                        <button type="submit" class="btn btn-warning tm-btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const formsetContainer = document.getElementById("image-formset");
-            const addButton = document.getElementById("add-image");
-            const totalForms = document.getElementById("id_images-TOTAL_FORMS");
-            const emptyFormDiv = document.getElementById("empty-form");
-
-            addButton.addEventListener("click", function () {
-                const formCount = parseInt(totalForms.value);
-                const newFormHtml = emptyFormDiv.innerHTML.replace(/__prefix__/g, formCount);
-                formsetContainer.insertAdjacentHTML("beforeend", newFormHtml);
-                totalForms.value = formCount + 1;
-            });
-        });
-    </script>
+</div>
 </body>
 </html>
