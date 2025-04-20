@@ -169,14 +169,14 @@ def profile(request):
 @login_required
 def edit_profile(request):
     if request.method == "POST":
-        form = SignupForm(request.POST,request.FILES,instance=request.user)
-        
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('blog:profile')
     else:
-        form = SignupForm(instance=request.user)
-    return render(request, 'registration/edituser.html',{'form':form})
+        form = EditProfileForm(instance=request.user)
+    return render(request, 'registration/edituser.html', {'form': form})
+
 
 
 

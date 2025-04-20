@@ -30,6 +30,23 @@ class SignupForm(forms.ModelForm):
     )
 
 
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email',
+                'phone', 'birth_date', 'job', 'bio', 'profile_img']
+        widgets = {
+            'birth_date': DateInput(attrs={'type': 'date'}),
+            'profile_img': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise ValidationError('Email already used')
+        return email
+
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
