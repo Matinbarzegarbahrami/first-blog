@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p#!luwxo@$)&)d8z28p#zo)sk%51$iouv8ek90-4p=yyioz)3z'
 
 
-DEBUG = True
-ALLOWED_HOSTS = ['first-blog-at6r.onrender.com',"*"]
+DEBUG = False
+ALLOWED_HOSTS = ['first-blog-at6r.onrender.com']
 
 
 # Application definition
