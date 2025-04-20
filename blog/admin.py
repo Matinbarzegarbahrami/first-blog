@@ -2,42 +2,35 @@ from django.contrib import admin
 from .models import *
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-# Register your models here.
-
 
 def deactivepost(modeladmin, request, queryset):
     result = queryset.update(active=False)
-    message = f"{result}posts are deactive"
+    message = f"{result} posts are deactive"
     modeladmin.message_user(request, message)
 
 deactivepost.short_description = 'Deactive'
 
 def activepost(modeladmin, request, queryset):
     result = queryset.update(active=True)
-    message = f"{result}posts are active"
+    message = f"{result} posts are active"
     modeladmin.message_user(request, message)
 
-
-activepost.short_description = 'active'
-# ______++++++++++++++++_______________
+activepost.short_description = 'Active'
 
 def activeuser(modeladmin, request, queryset):
     result = queryset.update(is_active=True)
-    message = f"{result}posts are active"
+    message = f"{result} users are active"
     modeladmin.message_user(request, message)
 
-
-activeuser.short_description = 'active'
+activeuser.short_description = 'Active'
 
 def deactiveuser(modeladmin, request, queryset):
     result = queryset.update(is_active=False)
-    message = f"{result}posts are deactive"
+    message = f"{result} users are deactive"
     modeladmin.message_user(request, message)
-
 
 deactiveuser.short_description = 'Deactive'
 
-# _______________________________________________________________
 class FirstNameInitialFilter(admin.SimpleListFilter):
     title = _('First Name Initial')
     parameter_name = 'first_name_initial'
@@ -53,7 +46,6 @@ class FirstNameInitialFilter(admin.SimpleListFilter):
                 Q(first_name__istartswith=persian_equivalent(self.value()))
             )
         return queryset
-
 
 class LastNameInitialFilter(admin.SimpleListFilter):
     title = _('Last Name Initial')
@@ -100,37 +92,31 @@ def persian_equivalent(letter):
 class ImageInline(admin.TabularInline):
     model = Image
     extra = 0
-# _____________________________________________________________
-
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'auther', 'created','active']
+    list_display = ['title', 'auther', 'created', 'active']
     ordering = ['title', 'created']
-    list_filter = ['auther','created']
+    list_filter = ['auther', 'created']
     search_fields = ['title', 'description']
     raw_id_fields = ['auther']
     prepopulated_fields = {"slug": ['title']}
     list_editable = ['active']
     inlines = [ImageInline]
-    
-    actions = [deactivepost,activepost]
-
+    actions = [deactivepost, activepost]
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username', 'first_name', 'last_name','created']
-    ordering = [ 'created', 'username']
-    list_filter = [UsernameInitialFilter,'created', FirstNameInitialFilter, LastNameInitialFilter]
+    list_display = ['username', 'first_name', 'last_name', 'created']
+    ordering = ['created', 'username']
+    list_filter = [UsernameInitialFilter, 'created', FirstNameInitialFilter, LastNameInitialFilter]
+    actions = [deactiveuser, activeuser]
 
-    actions = [deactiveuser,activeuser]
-
-
-@admin.register(Image) 
+@admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['post', 'title', 'created']
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'created','text','active']
+    list_display = ['name', 'created', 'text', 'active']
     list_editable = ['active']

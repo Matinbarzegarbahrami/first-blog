@@ -1,5 +1,4 @@
 {% load static %}
-{% comment %} {% include "partials/Paginator.html" with page_obj=posts %} {% endcomment %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,19 +6,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Blog Project</title>
-	<link rel="stylesheet" href="fontawesome/css/all.min.css"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-<!--
-    
-TemplateMo 553 Xtra Blog
-
-https://templatemo.com/tm-553-xtra-blog
-
--->
 </head>
 <body>
 	<header class="tm-header" id="tm-header">
@@ -32,7 +22,7 @@ https://templatemo.com/tm-553-xtra-blog
             </div>
             <nav class="tm-nav" id="tm-nav">            
                 <ul>
-                    <li class="tm-nav-item active"><a href="{%url 'blog:all_posts'%}" class="tm-nav-link">
+                    <li class="tm-nav-item active"><a href="{% url 'blog:all_posts' %}" class="tm-nav-link">
                         <i class="fas fa-home"></i>
                         Home Page
                     </a></li>
@@ -40,8 +30,7 @@ https://templatemo.com/tm-553-xtra-blog
                         <i class="fas fa-pen"></i>
                         Single Post
                     </a></li>
-                    
-                    <li class="tm-nav-item"><a href="{% url 'blog:contact'%}" class="tm-nav-link">
+                    <li class="tm-nav-item"><a href="{% url 'blog:contact' %}" class="tm-nav-link">
                         <i class="far fa-comments"></i>
                         Contact Us
                     </a></li>
@@ -66,6 +55,7 @@ https://templatemo.com/tm-553-xtra-blog
             </p>        
         </div>
     </header>
+
     <div class="tm-auth-links" style="padding-right:10px">
         <a href="{% url 'blog:all_posts' %}" class="tm-btn-auth">Home</a>
         {% if user.is_authenticated %}
@@ -77,66 +67,60 @@ https://templatemo.com/tm-553-xtra-blog
         {% else %}
             <a href="{% url 'blog:login' %}" class="tm-btn-auth">log in</a>
         {% endif %}
-        
     </div>
+
     <div class="container-fluid">
         <main class="tm-main">
-            <div class="row tm-row" >
+            <div class="row tm-row">
                 <div class="col-12">
-                    <form method="GET" class="form-inline tm-mb-80 tm-search-form" action="{% url 'blog:search_post' %}">  
-
+                    <form method="GET" class="form-inline tm-mb-80 tm-search-form" action="{% url 'blog:search_post' %}">
                         <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
-                        <button class="tm-search-button" type="submit" xmlns="http://www.w3.org/2000/svg">
+                        <button class="tm-search-button" type="submit">
                             <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
                         </button>                                
                     </form>
-                    {% comment %} <form method="get" action="{% url 'blog:search_post' %}">
-                        <input type="text" name="query">
-                        <input type="submit" value="search">
-                    </form> {% endcomment %}
-                    
                 </div>                
             </div> 
+
             {% if tag %}
                 <div style="display: flex; justify-content: center; margin: 30px 0;">
                     <p style="font-size: 1.5rem; color: #333;">result for <b>{{ tag.name }}</b></p>
                 </div>
             {% endif %}
 
-
             <div style="display: flex; justify-content: left; margin: 30px 0;">
-                <p style="font-size: 1.5rem; color: #333; padding-left:25%">result for <b>{{query}}</b></p>
+                <p style="font-size: 1.5rem; color: #333; padding-left:25%">result for <b>{{ query }}</b></p>
             </div>
-                {%if posts%}
-                    <div class="row tm-row" style="display: flex; justify-content: center; flex-wrap: wrap;">
-                        
-                        {% for post in posts %}
-                            <article class="col-12 col-md-6 tm-post">
-                                
-                                <hr class="tm-hr-primary">
-                                <a href="{{ post.get_absolute_url }}" class="effect-lily tm-post-link tm-pt-60">
-                                    <div class="tm-post-link-inner">
-                                        {% if post.images.exists %}
-                                            <img src="{{ post.images.first.img_file.url }}" alt="Image" class="img-fluid">
-                                        {% endif %}
-                                    </div>
-                                    <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ post.title }}</h2>
-                                </a>
-                                <p class="tm-pt-30">
-                                    {{ post.description | truncatewords:13 }}
-                                </p>
-                                <div class="d-flex justify-content-between tm-pt-45">
-                                    <span class="tm-color-primary">tags</span>
-                                    <span class="tm-color-primary">{{ post.created|date:"Y ,m ,d" }}</span>
+
+            {% if posts %}
+                <div class="row tm-row" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                    {% for post in posts %}
+                        <article class="col-12 col-md-6 tm-post">
+                            <hr class="tm-hr-primary">
+                            <a href="{{ post.get_absolute_url }}" class="effect-lily tm-post-link tm-pt-60">
+                                <div class="tm-post-link-inner">
+                                    {% if post.images.exists %}
+                                        <img src="{{ post.images.first.img_file.url }}" alt="Image" class="img-fluid">
+                                    {% endif %}
                                 </div>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <span>Comments: {{post.comments.count}}</span>
-                                    <span>{{ post.auther }}</span>
-                                </div>
-                            </article>
-                        {% endfor %}
-                    </div>
+                                <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ post.title }}</h2>
+                            </a>
+                            <p class="tm-pt-30">
+                                {{ post.description | truncatewords:13 }}
+                            </p>
+                            <div class="d-flex justify-content-between tm-pt-45">
+                                <span class="tm-color-primary">tags</span>
+                                <span class="tm-color-primary">{{ post.created|date:"Y ,m ,d" }}</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <span>Comments: {{ post.comments.count }}</span>
+                                <span>{{ post.auther }}</span>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+
                 <div style="justify-items: anchor-center; padding-right:23px">
                     <div class="row tm-row tm-mt-100 tm-mb-75 justify-content-center">
                         <div class="tm-paging-wrapper" style="text-align: center;">
@@ -157,7 +141,7 @@ https://templatemo.com/tm-553-xtra-blog
                                             {% endif %}
                                         {% endif %}
                                     {% endif %}
-                    
+
                                     {% for num in page.paginator.page_range %}
                                         {% if page.number == num %}
                                             <li class="tm-paging-item active">
@@ -169,7 +153,7 @@ https://templatemo.com/tm-553-xtra-blog
                                             </li>
                                         {% endif %}
                                     {% endfor %}
-                    
+
                                     {% if page.has_next %}
                                         {% if page.number < page.paginator.num_pages|add:'-3' %}
                                             <li class="tm-paging-item disabled">
@@ -191,14 +175,11 @@ https://templatemo.com/tm-553-xtra-blog
                             </nav>
                         </div>
                     </div>
-                    
                 </div>
-                {%else%}
-                    <p>not found result</p>
-                {%endif%}
-            
-            
-                        
+            {% else %}
+                <p>not found result</p>
+            {% endif %}
+
             <footer class="row tm-row">
                 <hr class="col-12">
                 <div class="col-md-6 col-12 tm-color-gray">
@@ -210,6 +191,7 @@ https://templatemo.com/tm-553-xtra-blog
             </footer>
         </main>
     </div>
+
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/templatemo-script.js' %}"></script>
 </body>

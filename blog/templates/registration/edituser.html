@@ -51,47 +51,68 @@
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       
-      {{ form.non_field_errors }}
-      
       <div class="mb-3">
         <label for="id_username">Username</label>
         {{ form.username }}
-        {{ form.username.errors }}
+        {% if form.username.errors %}
+          <div class="text-danger">
+            {{ form.username.errors }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">
         <label for="id_email">Email</label>
         {{ form.email }}
-        {{ form.email.errors }}
+        {% if form.email.errors %}
+          <div class="text-danger">
+            {{ form.email.errors }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">
         <label for="id_phone">Phone number</label>
         {{ form.phone }}
-        {{ form.phone.errors }}
+        {% if form.phone.errors %}
+          <div class="text-danger">
+            {{ form.phone.errors }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">
-        <label for="id_birth_date">Bitrh day</label>
+        <label for="id_birth_date">Birth day</label>
         {{ form.birth_date }}
-        {{ form.birth_date.errors }}
+        {% if form.birth_date.errors %}
+          <div class="text-danger">
+            {{ form.birth_date.errors }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">
         <label for="id_job">Job</label>
         {{ form.job }}
-        {{ form.job.errors }}
+        {% if form.job.errors %}
+          <div class="text-danger">
+            {{ form.job.errors }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">
         <label for="id_bio">About me</label>
         {{ form.bio }}
-        {{ form.bio.errors }}
+        {% if form.bio.errors %}
+          <div class="text-danger">
+            {{ form.bio.errors }}
+          </div>
+        {% endif %}
       </div>
 
       <div class="mb-3">
         <label for="id_profile_img" class="form-label">Profile picture</label>
-      
         {% if form.instance.profile_img %}
           <div class="mb-2">
             <img src="{{ user.profile_img.url }}" alt="current picture" style="max-width: 150px; border-radius: 10px;">
@@ -99,16 +120,13 @@
         {% else %}
           <p>There is no picture</p>
         {% endif %}
-      
         {{ form.profile_img.as_widget }}
-      
         {% if form.profile_img.errors %}
           <div class="text-danger">
             {{ form.profile_img.errors }}
           </div>
         {% endif %}
       </div>
-      
 
       <button type="submit" class="btn btn-primary w-100">Record changes</button>
     </form>

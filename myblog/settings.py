@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p#!luwxo@$)&)d8z28p#zo)sk%51$iouv8ek90-4p=yyioz)3z'
 
 
-DEBUG = False
-ALLOWED_HOSTS = ['first-blog-at6r.onrender.com']
+DEBUG = True
+ALLOWED_HOSTS = ['first-blog-at6r.onrender.com',"*"]
 
 
 # Application definition
@@ -168,3 +168,26 @@ cloudinary.config(
     api_key='869882568717196',
     api_secret='EwJZwuXXJQvJgT76Fk3LcMgkXkY'
 )
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': 'debug.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }

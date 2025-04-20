@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Blog Project</title>
-	<link rel="stylesheet" href="fontawesome/css/all.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Project</title>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-	<header class="tm-header" id="tm-header">
+    <header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -128,7 +128,6 @@
                             {% endfor %}
                         </ul>
 
-
                         <nav class="tm-paging-nav d-inline-block mt-4">
                             <ul class="pagination justify-content-center">
                                 {% if page_tag.has_previous %}
@@ -147,7 +146,6 @@
                 </div>
             </div>
 
-            <!-- Pagination for posts -->
             <div class="row tm-row tm-mt-100 tm-mb-75">
                 <div class="tm-paging-wrapper mx-auto">
                     <nav class="tm-paging-nav d-inline-block">
@@ -157,7 +155,6 @@
                                     <a href="?page={{ page.previous_page_number }}" class="mb-2 tm-btn tm-paging-link">«prev</a>
                                 </li>
                             {% endif %}
-
                             {% for num in page.paginator.page_range %}
                                 {% if page.number == num %}
                                     <li class="tm-paging-item active"><a href="?page={{ num }}" class="mb-2 tm-btn tm-paging-link">{{ num }}</a></li>
@@ -165,7 +162,6 @@
                                     <li class="tm-paging-item"><a href="?page={{ num }}" class="mb-2 tm-btn tm-paging-link">{{ num }}</a></li>
                                 {% endif %}
                             {% endfor %}
-
                             {% if page.has_next %}
                                 <li class="tm-paging-item">
                                     <a href="?page={{ page.next_page_number }}" class="mb-2 tm-btn tm-paging-link">next»</a>
