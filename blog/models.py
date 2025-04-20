@@ -7,11 +7,11 @@ from cloudinary.models import CloudinaryField
 from django.utils.text import slugify
 
 class User(AbstractUser):
-    profile_img = CloudinaryField('image', null=True, blank=True)  # اضافه کردن null و blank برای اختیاری بودن
-    job = models.CharField(max_length=100, null=True, blank=True)  # حداکثر طول برای job تعریف شد
-    bio = models.CharField(max_length=500, null=True, blank=True)  # افزایش طول bio برای ذخیره‌سازی توضیحات بیشتر
-    phone = models.CharField(max_length=15, null=True, blank=True)  # حداکثر طول برای شماره تلفن به ۱۵ تغییر کرد
-    birth_date = models.DateField(null=True, blank=True)  # تغییر به DateField به جای DateTimeField برای تاریخ تولد
+    profile_img = CloudinaryField('image', null=True, blank=True) 
+    job = models.CharField(max_length=100, null=True, blank=True) 
+    bio = models.CharField(max_length=500, null=True, blank=True) 
+    phone = models.CharField(max_length=11, null=True, blank=True)  
+    birth_date = models.DateField(null=True, blank=True) 
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -34,7 +34,7 @@ class PublishQ(models.Manager):
 class Post(models.Model):
     auther = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_post")
     title = models.CharField(max_length=60)
-    slug = models.SlugField(max_length=60, unique=True)  # تغییر به SlugField برای url-friendly بودن
+    slug = models.SlugField(max_length=60, unique=True) 
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
@@ -52,15 +52,12 @@ class Post(models.Model):
         ]
 
     def __str__(self):
-        return self.title  # تغییر به عنوان به جای توضیحات
+        return self.title 
 
     def get_absolute_url(self):
-        return reverse('myblog:post', args=[self.id]) # استفاده از slug به جای id
+        return reverse('myblog:post', args=[self.id]) 
 
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.title)
-    #     super().save(*args, **kwargs)
+
 # ______________________________________________________________________
 class Image(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
@@ -82,7 +79,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=100, null=True, blank=True)
     text = models.TextField()
-    email = models.EmailField(max_length=100)  # تغییر به EmailField برای صحت ایمیل
+    email = models.EmailField(max_length=100) 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)

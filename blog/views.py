@@ -166,6 +166,7 @@ def profile(request):
     }
     return render(request,"user/profile.html",context)
 
+@login_required
 def edit_profile(request):
     if request.method == "POST":
         form = SignupForm(request.POST,request.FILES,instance=request.user)

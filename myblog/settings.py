@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-p#!luwxo@$)&)d8z28p#zo)sk%51$iouv8ek90-4p=yyioz)3z'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ['first-blog-at6r.onrender.com','*']
+
+DEBUG = False
+ALLOWED_HOSTS = ['first-blog-at6r.onrender.com']
 
 
 # Application definition
@@ -86,17 +86,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'myblog_db',
-#         'USER': 'bloguser',
-#         'PASSWORD': 'aAaAs11_c',
-#         'HOST': 'first-blog-at6r.onrender.com',
-#         'PORT': '5432',
-#     }
-# }
-
 
 
 # Password validation
@@ -144,8 +133,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'blog.User'
-# LOGIN_REDIRECT_URL = '/user/profile/'         # بعد از لاگین موفق به این مسیر می‌ره
-LOGOUT_REDIRECT_URL = 'myblog:login' # بعد از لاگ‌اوت به این مسیر می‌ره
+# LOGIN_REDIRECT_URL = '/user/profile/'       
+LOGOUT_REDIRECT_URL = 'myblog:login' 
 LOGIN_URL = '/login/' 
 LOGOUT_URL = '/logout/'
 
@@ -155,17 +144,16 @@ INSTALLED_APPS += [
     'cloudinary_storage',
 ]
 
-# استفاده از Cloudinary به عنوان فضای ذخیره فایل
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# اطلاعات Cloudinary
+# Information Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'durmeyhej',
     'API_KEY': '869882568717196',
     'API_SECRET': 'EwJZwuXXJQvJgT76Fk3LcMgkXkY',
 }
 
-# فقط برای نمایش URLهای فایل‌ها، نیازی نیست حتماً ست بشه
 MEDIA_URL = f'https://res.cloudinary.com/durmeyhej/'
 
 

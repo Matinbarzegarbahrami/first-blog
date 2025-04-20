@@ -48,7 +48,7 @@
 <body>
   <div class="edit-container">
     <h2>Edit your information</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       
       {{ form.non_field_errors }}
@@ -94,7 +94,7 @@
       
         {% if form.instance.profile_img %}
           <div class="mb-2">
-            <img src="{{ user.profile_img.url }}" alt="تصویر فعلی" style="max-width: 150px; border-radius: 10px;">
+            <img src="{{ user.profile_img.url }}" alt="current picture" style="max-width: 150px; border-radius: 10px;">
           </div>
         {% else %}
           <p>no</p>

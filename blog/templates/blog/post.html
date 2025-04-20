@@ -92,7 +92,7 @@ https://templatemo.com/tm-553-xtra-blog
         <main class="tm-main">
             
 
-            <!-- Search form -->
+
             <div class="row tm-row">
                 <div class="col-12">
                     <form method="GET" class="form-inline tm-mb-80 tm-search-form">                
@@ -153,8 +153,6 @@ https://templatemo.com/tm-553-xtra-blog
                             </span>
                         </div>
                         
-                        <!-- Comments -->
-                        
                         <div>
                             <h2 class="tm-color-primary tm-post-title">Comments</h2>
                             <hr class="tm-hr-primary tm-mb-45">
@@ -177,27 +175,12 @@ https://templatemo.com/tm-553-xtra-blog
                                         {{cm.text}}
                                     </p>
                                     <div class="d-flex justify-content-between">
-                                        {% comment %} <a href="#" class="tm-color-primary">REPLY     </a> {% endcomment %}
                                         <span class="tm-color-primary">   {{cm.created|date:"Y m d"}}</span>
                                     </div>                                                 
                                 </div>                                
                             </div>
                             {%endfor%}
-                            {% comment %} <div class="tm-comment-reply tm-mb-45">
-                                <hr>
-                                <div class="tm-comment">
-                                    <figure class="tm-comment-figure">
-                                        <img src="img/comment-2.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
-                                        <figcaption class="tm-color-primary text-center">Jewel Soft</figcaption>    
-                                    </figure>
-                                    <p>
-                                        Nunc et eros quis enim feugiat tincidunt et vitae dui.
-                                        Nullam consectetur justo ac ex laoreet rhoncus. Nunc
-                                        id leo pretium, faucibus sapien vel, euismod turpis.
-                                    </p>
-                                </div>                                
-                                <span class="d-block text-right tm-color-primary">June 21, 2020</span>
-                            </div> {% endcomment %}
+
                             <form action="{% url 'blog:comment' id=post.id %}" method="POST" class="mb-5 tm-comment-form">
                                 {% csrf_token %}
                                 <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
@@ -232,7 +215,7 @@ https://templatemo.com/tm-553-xtra-blog
 
                                 </ul>
                         
-                                <!-- پجینیتور تگ‌ها -->
+
                                 <nav class="tm-paging-nav d-inline-block mt-4">
                                     <ul class="pagination justify-content-center">
                                         {% if page_tag.has_previous %}

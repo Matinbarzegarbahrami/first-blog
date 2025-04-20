@@ -28,8 +28,7 @@ class SignupForm(forms.ModelForm):
     birth_date = forms.DateField(
         widget=DateInput(attrs={'type': 'date'})
     )
-    # profile_img = forms.ImageField()
-    
+
 
 class PostForm(forms.ModelForm):
     class Meta:

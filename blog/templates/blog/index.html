@@ -70,7 +70,6 @@
 
     <div class="container-fluid">
         <main class="tm-main">
-            <!-- Search form -->
             <div class="row tm-row">
                 <div class="col-12">
                     <form method="GET" class="form-inline tm-mb-80 tm-search-form" action="{% url 'blog:search_post' %}">
@@ -87,7 +86,6 @@
             {% endif %}
 
             <div class="row tm-row">
-                <!-- Posts -->
                 <div class="col-md-8">
                     <div class="row">
                         {% for post in posts %}
@@ -121,8 +119,6 @@
                         {% endfor %}
                     </div>
                 </div>
-
-                <!-- Tags sidebar -->
                 <div class="col-md-4">
                     <div class="tm-tags">
                         <h3 class="tm-color-primary">Tags</h3>
@@ -132,7 +128,7 @@
                             {% endfor %}
                         </ul>
 
-                        <!-- Pagination for tags -->
+
                         <nav class="tm-paging-nav d-inline-block mt-4">
                             <ul class="pagination justify-content-center">
                                 {% if page_tag.has_previous %}
